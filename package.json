@@ -1,0 +1,39 @@
+{
+  "name": "the-quarrymen",
+  "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
+  "keywords": [
+    "Sanity",
+    "Next.js",
+    "Headless CMS",
+    "Visual Editing",
+    "Live Content API (LCAPI)",
+    "Real-time"
+  ],
+  "homepage": "https://github.com/sanity-io/sanity-template-nextjs-clean#readme",
+  "bugs": {
+    "url": "https://github.com/sanity-io/sanity-template-nextjs-clean/issues"
+  },
+  "workspaces": [
+    "studio",
+    "frontend"
+  ],
+  "scripts": {
+    "build": "studio/sanity.config.sh dynamic && cd studio && sanity build --no-extract-manifest",
+    "deploy": "studio/sanity.config.sh dynamic && cd studio && sanity deploy --no-build",
+    "dev": "studio/sanity.config.sh dynamic && npm-run-all --parallel --print-label dev:*",
+    "dev:next": "npm run dev --workspace=frontend",
+    "dev:studio": "npm run dev --workspace=studio",
+    "format": "prettier --cache --write .",
+    "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace",
+    "lint": "npm run lint --workspace=frontend",
+    "manifest": "studio/sanity.config.sh static && cd studio && sanity manifest extract",
+    "type-check": "npm run type-check --workspaces",
+    "typegen": "studio/sanity.config.sh static && sanity schema extract && sanity typegen generate"
+  },
+  "prettier": "@sanity/prettier-config",
+  "devDependencies": {
+    "@sanity/prettier-config": "^2.0.1",
+    "npm-run-all2": "^5.0.2",
+    "prettier": "^3.6.2"
+  }
+}
