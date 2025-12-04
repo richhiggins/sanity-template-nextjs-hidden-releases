@@ -6,6 +6,8 @@ export const HiddenImageInput = (props: ImageInputProps) => {
   const client = useClient({apiVersion: 'v2023-08-22'})
   const perspective = usePerspective()
 
+  //  console.log(perspective)
+
   //overwrite the default onChange function
   const handleChange = async (patches: FormPatch | FormPatch[] | PatchEvent) => {
     //first, just do the default action given to us by the component
@@ -28,8 +30,7 @@ export const HiddenImageInput = (props: ImageInputProps) => {
         if (perspective?.metadata?.hidden)
           await client
             .patch(assetId)
-            // `hidden` for simple filtering, `hiddenBy` for simple lookup/update
-            .setIfMissing({hidden: true, hiddenBy: perspective._id})
+            .setIfMissing({hiddenBy: perspective._id})
             .commit()
             .then(console.log)
             .catch(console.error)

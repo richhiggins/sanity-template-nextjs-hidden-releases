@@ -297,8 +297,8 @@ const launchConfig = {
   },
 }
 
-if (currentUser.role === 'administrator') {
-  config.push(launchConfig)
-}
+//if (currentUser.role === 'administrator') {
+//  config.push(launchConfig)
+//}
 
-export default defineConfig(config)
+export default defineConfig(config[0])

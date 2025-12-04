@@ -1,5 +1,6 @@
 import {UserIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
+import HiddenByInput from '../../../components/hiddenByInput'
 
 /**
  * Person schema.  Define and edit the fields for the 'person' content type.
@@ -13,12 +14,11 @@ export const person = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'preLaunch',
-      title: 'Pre-Launch',
-      type: 'boolean',
-      initialValue: false,
-      hidden: ({value}) => value !== true, // renders a bit janky
-      readOnly: true,
+      name: 'hiddenBy',
+      type: 'string',
+      components: {
+        input: HiddenByInput,
+      },
     }),
     defineField({
       name: 'firstName',

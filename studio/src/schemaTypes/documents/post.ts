@@ -1,6 +1,7 @@
 import {DocumentTextIcon} from '@sanity/icons'
 import {format, parseISO} from 'date-fns'
 import {defineField, defineType} from 'sanity'
+import HiddenByInput from '../../../components/hiddenByInput'
 
 /**
  * Post schema.  Define and edit the fields for the 'post' content type.
@@ -14,12 +15,11 @@ export const post = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'preLaunch',
-      title: 'Pre-Launch',
-      type: 'boolean',
-      initialValue: false,
-      hidden: ({value}) => value !== true, // renders a bit janky
-      //      readOnly: true,
+      name: 'hiddenBy',
+      type: 'string',
+      components: {
+        input: HiddenByInput,
+      },
     }),
     defineField({
       name: 'title',

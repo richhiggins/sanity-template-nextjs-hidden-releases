@@ -1,6 +1,7 @@
-import {defineField, defineType} from 'sanity'
+import {ALL_FIELDS_GROUP, defineField, defineType} from 'sanity'
 import {DocumentIcon} from '@sanity/icons'
-import {hiddenBooleanInput} from '../../../components/hiddenBooleanInput'
+import HiddenBooleanInput from '../../../components/hiddenBooleanInput'
+import HiddenByInput from '../../../components/hiddenByInput'
 
 /**
  * Page schema.  Define and edit the fields for the 'page' content type.
@@ -12,6 +13,20 @@ export const page = defineType({
   title: 'Landing Page',
   type: 'document',
   icon: DocumentIcon,
+  groups: [
+    {
+      name: 'editorial',
+      title: 'Editorial',
+    },
+    {
+      name: 'access',
+      title: 'Access',
+    },
+    {
+      ...ALL_FIELDS_GROUP,
+      hidden: true,
+    },
+  ],
   fields: [
     defineField({
       name: 'preLaunch',
@@ -20,19 +35,23 @@ export const page = defineType({
       hidden: ({value}) => value !== true, // renders a bit janky
       readOnly: true,
     }),
-    /*
     defineField({
-      name: 'hidden',
-      type: 'boolean',
+      name: 'hiddenBy',
+      type: 'string',
       components: {
-        input: hiddenBooleanInput,
+        input: HiddenByInput,
       },
-    }),*/
+      group: 'access',
+      hidden: ({currentUser}) => {
+        return !currentUser?.roles?.find?.(({name}) => name === 'administrator')
+      },
+    }),
     defineField({
       name: 'name',
       title: 'Name',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'editorial',
     }),
 
     defineField({
@@ -44,17 +63,20 @@ export const page = defineType({
         source: 'name',
         maxLength: 96,
       },
+      group: 'editorial',
     }),
     defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      //      validation: (Rule) => Rule.required(),
+      group: 'editorial',
     }),
     defineField({
       name: 'subheading',
       title: 'Subheading',
       type: 'string',
+      group: 'editorial',
     }),
     defineField({
       name: 'pageBuilder',
@@ -73,6 +95,7 @@ export const page = defineType({
           ],
         },
       },
+      group: 'editorial',
     }),
   ],
 })
