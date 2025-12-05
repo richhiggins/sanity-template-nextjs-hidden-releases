@@ -8,7 +8,7 @@ Includes examples of how to:
 
 ## Key components:
 
-- Release action that adds a hide/unhide toggled to the release dashboard for administrator users  
+- Release action that adds a hide/unhide toggle to the release dashboard for administrator users  
 https://github.com/richhiggins/sanity-template-nextjs-hidden-releases/blob/main/studio/actions/index.ts
 
 - Custom image input component that tags the asset document when adding/editing inside a hidden release  
@@ -17,28 +17,33 @@ https://github.com/richhiggins/sanity-template-nextjs-hidden-releases/blob/main/
 - Custom input component that tags documents when editing when adding/editing a hidden release  
 https://github.com/richhiggins/sanity-template-nextjs-hidden-releases/blob/main/studio/components/hiddenByInput.tsx
 
+  - Example of conditionally hiding this field based on role<br />
+    https://github.com/richhiggins/sanity-template-nextjs-hidden-releases/blob/main/studio/src/schemaTypes/documents/page.ts#L45
+
 ## Example content resources
 
-To enable the role based hiding of content content resources with GROW filters are required. Here are some key resources I've created for this repo:
+To enable the role based hiding content resources with GROQ filters are required. Here are some key resources I've created for this repo:
 
-Excludes releases marked as hidden
+Excludes releases marked as hidden  
 `_id in path("_.releases.**") && metadata.hidden != true`
 
-Excludes Landing Page documents marked as hidden
+Excludes Landing Page documents marked as hidden  
 `_type =="page" && !defined(hiddenBy)` 
 
-Excludes images marked as hidden
-_type=="sanity.imageAsset" && !defined(hiddenBy)
+Excludes images marked as hidden  
+`_type=="sanity.imageAsset" && !defined(hiddenBy)`
 
 ## Other notes
 
 - The dataset needs to be private
 - A [function](https://www.sanity.io/docs/compute-and-ai/functions-introduction) should be created to run when a release is published to remove hidden & hiddenBy flags
-- Some further handling could be required for unhiding releases, to ensure documents, images are also unhidden
-- Image and document tagging could also be handled using functions targetting document versions inside hidden releases
+- Some further handling is required for unhiding releases, to ensure documents, images are also unhidden
+- Image and document tagging could alternatively be handled using functions targetting document versions inside hidden releases
 - Documents sync'ing into the content lake (e.g. Products) will need similar handling
 
-Starter readme 👇
+<br />
+
+Base Starter repo readme 👇
 
 # Clean Next.js + Sanity app
 
