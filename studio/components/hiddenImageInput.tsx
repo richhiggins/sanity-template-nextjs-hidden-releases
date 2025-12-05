@@ -21,7 +21,6 @@ export const HiddenImageInput = (props: ImageInputProps) => {
     //don't do anything if there is no asset
     if (!assetId) return
 
-    await client
     // @ts-ignore
     if (perspective.selectedPerspective?.metadata?.hidden)
       await client
